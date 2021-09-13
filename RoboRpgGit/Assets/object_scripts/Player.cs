@@ -5,12 +5,13 @@ using UnityEngine;
 public class Player : PartyMember
 {
     // Start is called before the first frame update
-    void Start()
+    protected new void Start()
     {
-        if (GetComponent<CharacterController>() == null)
-            controller = new CharacterController();
-        moveDirection = new Vector3(0, 0, 0);
+        base.Start();    
+       
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -36,11 +37,14 @@ public class Player : PartyMember
                                     moveDirection.y,
                                     (back + forward) * speed);
 
-        if (up == true)
+        if (up == true && canJump == true)
+        {
+            canJump = false;
             jump();
+        }
 
         gravity();
-        //turn();
+        turn();
         controller.Move(moveDirection * Time.deltaTime);
 
     }
