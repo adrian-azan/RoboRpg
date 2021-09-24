@@ -2,11 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum pathType
+{
+    pingPong,
+    loop
+};
+
 public class enemyRobot : Robot
 {
+  
     // Start is called before the first frame update
     public Vector3[] path;
     public int pos;
+
+    public pathType pt;
+
     private int direction;
     private Color debugColor;
 
@@ -30,11 +40,18 @@ public class enemyRobot : Robot
     // Update is called once per frame
     void Update()
     {
-
-        if (pos >= path.Length-1)
-            direction = -1;
-        else if (pos <= 0)
-            direction = 1;
+        if (pt == pathType.pingPong)
+        {
+            if (pos >= path.Length - 1)
+                direction = -1;
+            else if (pos <= 0)
+                direction = 1;
+        }
+        else if (pt == pathType.loop)
+        {
+            if (pos >= path.Length)
+                pos = 0;
+        }
 
         Vector3 origin = transform.position;
         origin.y = 0;
