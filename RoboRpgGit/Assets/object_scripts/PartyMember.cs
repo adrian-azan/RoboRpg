@@ -53,7 +53,7 @@ public class PartyMember : Robot
         float angle = Vector3.SignedAngle(Vector3.left, directionToTarget, Vector3.up) + 180;
         angle = Mathf.Deg2Rad * angle;
         angle = Mathf.Round(angle * 10.0f) * 0.1f;
-        Debug.Log(Mathf.Round(angle*10.0f) * 0.1f);
+        
         //Made y 0 so that all distances are only counting the x/z plane
         leaderPos.y = 0;
         Vector3 xz = transform.position;

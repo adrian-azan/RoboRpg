@@ -75,7 +75,7 @@ public class Robot : MonoBehaviour
     public void jump()
     {
         
-        Debug.Log(count++);
+        
         moveDirection.y = jumpSpeed;
         grounded = false;
 

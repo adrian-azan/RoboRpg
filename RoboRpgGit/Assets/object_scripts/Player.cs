@@ -7,8 +7,7 @@ public class Player : PartyMember
     // Start is called before the first frame update
     protected new void Start()
     {
-        base.Start();    
-       
+        base.Start();           
     }
 
 
@@ -36,7 +35,7 @@ public class Player : PartyMember
         moveDirection = new Vector3((left + right) * speed,
                                     moveDirection.y,
                                     (back + forward) * speed);
-
+        
         if (up == true && canJump == true)
         {
             canJump = false;
