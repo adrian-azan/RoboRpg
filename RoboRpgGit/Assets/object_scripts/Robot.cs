@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Robot : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -11,6 +11,7 @@ public class Robot : MonoBehaviour
     public float jumpSpeed = 50;
     public float gravityScale = .12F;
     public bool grounded = true;
+    public bool canJump = true;
 
 
     /***Body***/
@@ -22,11 +23,18 @@ public class Robot : MonoBehaviour
     public CharacterController controller;
     public Vector3 moveDirection;
 
-    private static int count = 0;
+    /***DEBUGING***/
+    protected static int count = 0;
+    public string ID;
+    public bool DEBUG = false;
+
+
+    /***MISC***/
+
 
     protected void Start()
     {  
-        moveDirection = new Vector3(0, 0, 0);
+        moveDirection = new Vector3(0, 0, 0);    
     }
 
     // Update is called once per frame
@@ -75,10 +83,9 @@ public class Robot : MonoBehaviour
     public void jump()
     {
         
-        
         moveDirection.y = jumpSpeed;
-        grounded = false;
-
+        grounded = false;  
+        canJump = false;
     }
 
     public void gravity()

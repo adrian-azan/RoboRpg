@@ -2,20 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum pathType
+public enum patrolType
 {
     pingPong,
     loop
+};
+
+public enum pathType
+{
+    linear,
+    area
 };
 
 public class enemyRobot : Robot
 {
   
     // Start is called before the first frame update
-    public Vector3[] path;
+    public Vector3[] posts;
     public int pos;
 
-    public pathType pt;
+    public patrolType patrol;
+    public pathType path;
 
     private int direction;
     private Color debugColor;
@@ -27,43 +34,94 @@ public class enemyRobot : Robot
         direction = 1;
         pos = 0;
         debugColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        moveDirection = new Vector3(1,0,1);
     }
 
     private void FixedUpdate()
     {
-        for (int i = 0; i < path.Length; i++)
+        for (int i = 0; i < posts.Length; i++)
         {
-            Debug.DrawRay(path[i], transform.TransformDirection(Vector3.up) * 2, debugColor);
+            Debug.DrawRay(posts[i], transform.TransformDirection(Vector3.up) * 2, debugColor);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (pt == pathType.pingPong)
+
+        if (path == pathType.linear)
+            postPatrol();
+        else if (path == pathType.area)
+            areaPatrol();
+
+        //gravity();
+    }
+
+    public void postPatrol()
+    {
+        if (patrol == patrolType.pingPong)
         {
-            if (pos >= path.Length - 1)
+            if (pos >= posts.Length - 1)
                 direction = -1;
             else if (pos <= 0)
                 direction = 1;
         }
-        else if (pt == pathType.loop)
+        else if (patrol == patrolType.loop)
         {
-            if (pos >= path.Length)
+            if (pos >= posts.Length)
                 pos = 0;
         }
 
         Vector3 origin = transform.position;
         origin.y = 0;
-        Debug.Log(pos);
-        Vector3 dir = path[pos] - origin;
-        
-        controller.SimpleMove(dir.normalized*speed);
+        Vector3 dir = posts[pos] - origin;
+
+        controller.SimpleMove(dir.normalized * speed);
 
         if (dir.magnitude < 1)
         {
             pos += direction;
         }
+    }
+
+    public void areaPatrol()
+    {
+        if (transform.position.x > posts[0].x)//LEFT
+        {
+            moveDirection.x = Random.Range(-.1f, -1) * speed;
+            moveDirection.z = Random.Range(-1, 1) * speed;
+            
+        }
+        else if (transform.position.x <= posts[1].x)//RIGHT
+        {
+            moveDirection.x = Random.Range(.1f, 1) * speed;
+            moveDirection.z = Random.Range(-1, 1) * speed;
+            
+        }
+        else if (transform.position.z <= posts[0].z)//TOP
+        {
+            moveDirection.x = Random.Range(-1, 1) * speed;
+            moveDirection.z = Random.Range(.1f, 1) * speed;
+            
+        }
+        else if (transform.position.z >= posts[1].z)//BOTTOM
+        {
+            moveDirection.x = Random.Range(-1, 1) * speed;
+            moveDirection.z = Random.Range(-.1f, -1) * speed;
+            
+        }
+
+        else if (moveDirection.x == 0 && moveDirection.z == 0)
+        {
+
+            moveDirection.x = Random.Range(-1, 1) * speed;
+            moveDirection.z = Random.Range(-.1f, -1) * speed;
+        }
+
+
+        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale);
+        moveDirection = moveDirection.normalized;
         
+        controller.Move(moveDirection * speed * Time.deltaTime);
     }
 }

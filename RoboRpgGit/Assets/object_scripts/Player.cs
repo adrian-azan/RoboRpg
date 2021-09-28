@@ -5,9 +5,16 @@ using UnityEngine;
 public class Player : PartyMember
 {
     // Start is called before the first frame update
+    public PartyMember[] party;
     protected new void Start()
     {
-        base.Start();           
+        base.Start();
+        for (int i = 0; i < party.Length; i++)
+        {
+            Physics.IgnoreCollision(controller, party[i].controller, true);
+            for (int j = i; j < party.Length; j++)
+                Physics.IgnoreCollision(party[j].controller, party[i].controller, true);
+        }
     }
 
 
@@ -38,13 +45,33 @@ public class Player : PartyMember
         
         if (up == true && canJump == true)
         {
-            canJump = false;
             jump();
+            StartCoroutine("partyJump");
         }
 
         gravity();
         turn();
         controller.Move(moveDirection * Time.deltaTime);
 
+        
+
+        for (int i = 0; i < party.Length - 1; i++)
+        {
+            party[i].updatePosition(party[i + 1].transform.position);
+        }
+
+        party[party.Length - 1].updatePosition(transform.position);
+
+    }
+
+
+    public IEnumerator partyJump()
+    {
+        Debug.Log("partyJump");
+        for (int i = party.Length-1; i >= 0; i--)
+        {
+            yield return new WaitForSeconds(.2f);
+            party[i].jump();
+        }
     }
 }
