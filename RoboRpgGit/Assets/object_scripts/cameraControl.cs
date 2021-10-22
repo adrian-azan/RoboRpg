@@ -10,8 +10,11 @@ public class cameraControl : MonoBehaviour
     public float yDistance;
     public float zDistance;
 
+    [Range (0f,360f)]
     public float xRotation;
+    [Range(0f, 360f)]
     public float yRotation;
+    [Range(0f, 360f)]
     public float zRotation;
 
     void Start()

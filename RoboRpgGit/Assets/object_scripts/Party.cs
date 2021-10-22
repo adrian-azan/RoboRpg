@@ -12,7 +12,7 @@ public class Party
     {
         for (int i = 0; i < party.Length-1; i++)
         {
-            party[i].updatePosition(party[i+1].transform.position);
+            party[i].updatePosition(party[i+1]);
         }
     }
 }

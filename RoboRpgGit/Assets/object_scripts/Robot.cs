@@ -22,6 +22,7 @@ public class Robot : MonoBehaviour
     /***Movement***/
     public CharacterController controller;
     public Vector3 moveDirection;
+    public float directionAngle;
 
     /***DEBUGING***/
     protected static int count = 0;
@@ -30,11 +31,13 @@ public class Robot : MonoBehaviour
 
 
     /***MISC***/
-
+    public Dialogue dialogue;
 
     protected void Start()
     {  
-        moveDirection = new Vector3(0, 0, 0);    
+        moveDirection = new Vector3(0, 0, 0);
+        dialogue = transform.GetComponentInChildren<Dialogue>();
+        Debug.Log(dialogue);
     }
 
     // Update is called once per frame
@@ -44,6 +47,19 @@ public class Robot : MonoBehaviour
         controller.Move(moveDirection);
     }
     
+    public void turnCheck()
+    {
+        if (moveDirection.x < 0)
+        {
+            facing = false;
+            turning = true;
+        }
+        else if (moveDirection.x > 0)
+        {
+            facing = true;
+            turning = true;
+        }
+    }
 
     public void turn()
     {
@@ -55,7 +71,7 @@ public class Robot : MonoBehaviour
 
         if (facing == true)
         {
-
+            
             if ((rotation.y >= 270 && rotation.y < 360) || (rotation.y >= -5 && rotation.y < 5))
             {
                 rotation.y = 0;
@@ -98,4 +114,54 @@ public class Robot : MonoBehaviour
         moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale);
     }
 
+
+    public float DistanceFrom(MonoBehaviour target)
+    {
+        Vector3 targetPosition = target.transform.position;
+        //Made y 0 so that all distances are only counting the x/z plane
+        targetPosition.y = 0;
+        Vector3 xz = transform.position;
+        xz.y = 0;
+        return (targetPosition - xz).magnitude;
+    }
+
+    public void Forward(float scale = 1)
+    {
+        controller.Move(moveDirection * Time.deltaTime * scale);
+    }
+   
+    public void Stop()
+    {
+        moveDirection = new Vector3(0, moveDirection.y, 0);
+    }
+
+    public void SetVelocity()
+    {
+        moveDirection = new Vector3(1F, moveDirection.y, 1F);
+        moveDirection.x = -moveDirection.x * Mathf.Cos(directionAngle) * speed;
+        moveDirection.z = moveDirection.z * Mathf.Sin(directionAngle) * speed;
+    }
+    public void SetDirection(float angle)
+    {
+        angle = Mathf.Deg2Rad * angle;
+        angle = Mathf.Round(angle * 10.0f) * 0.1f;
+
+        directionAngle = angle;
+    }
+
+    public void SetDirection(Robot target)
+    {
+        Vector3 targetPosition = target.transform.position;
+        Vector3 directionToTarget = transform.position - targetPosition;
+        float angle = Vector3.SignedAngle(Vector3.left, directionToTarget, Vector3.up) + 180;
+        angle = Mathf.Deg2Rad * angle;
+        angle = Mathf.Round(angle * 10.0f) * 0.1f;
+
+        directionAngle = angle;
+    }
+
+
+
 }
+
+

@@ -37,56 +37,26 @@ public class PartyMember : Robot
     {
        
     }
-
-    public void updatePosition(Vector3 leaderPos)
+    
+    public void updatePosition(Robot leader)
     {
-        //Find angle from partyMember to leader        
-        Vector3 directionToTarget = transform.position - leaderPos;
-        float angle = Vector3.SignedAngle(Vector3.left, directionToTarget, Vector3.up) + 180;
-        angle = Mathf.Deg2Rad * angle;
-        angle = Mathf.Round(angle * 10.0f) * 0.1f;
+        SetDirection(leader);
+        SetVelocity();
 
-
-        //Made y 0 so that all distances are only counting the x/z plane
-        leaderPos.y = 0;
-        Vector3 xz = transform.position;
-        xz.y = 0;
-
-       // if (!leader.grounded)
-        //    moveDirection.y = leader.moveDirection.y;
-
-        moveDirection = new Vector3(1F, moveDirection.y, 1F);
-
-
-
-        float distance = (leaderPos - xz).magnitude;
-        moveDirection.x = -moveDirection.x * Mathf.Cos(angle) * speed;
-        moveDirection.z = moveDirection.z * Mathf.Sin(angle) * speed;
-
-        if (moveDirection.x < 0)
-        {
-            facing = false;
-            turning = true;
-        }
-        else if (moveDirection.x > 0)
-        {
-            facing = true;
-            turning = true;
-        }
-
-        moveDirection.x = moveDirection.x < 0 ? Mathf.Floor(moveDirection.x) : Mathf.Ceil(moveDirection.x);
-        moveDirection.z = moveDirection.z < 0 ? Mathf.Floor(moveDirection.z) : Mathf.Ceil(moveDirection.z);
+        float distance = DistanceFrom(leader);
+        //  moveDirection.x = moveDirection.x < 0 ? Mathf.Floor(moveDirection.x) : Mathf.Ceil(moveDirection.x);
+        //  moveDirection.z = moveDirection.z < 0 ? Mathf.Floor(moveDirection.z) : Mathf.Ceil(moveDirection.z);
 
         //Gives followers a buffer in how far they should be from leader
         if (distance > 6)
-            controller.Move(moveDirection * Time.deltaTime);
+            Forward();
         else if (distance > 4)
-            controller.Move(moveDirection * .75F * Time.deltaTime);
+            Forward(.75f);
         else
         {
             moveDirection.x = 0;
             moveDirection.z = 0;
-            controller.Move(moveDirection * Time.deltaTime);
+            Forward();
         }
 
        // canJump = leader.canJump;  
@@ -95,6 +65,7 @@ public class PartyMember : Robot
 
 
         gravity();
+        turnCheck();
         turn();
     }
 

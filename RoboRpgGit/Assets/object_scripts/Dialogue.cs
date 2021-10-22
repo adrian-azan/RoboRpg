@@ -10,28 +10,48 @@ public class Dialogue : MonoBehaviour
 {
     new Camera camera;
     Text text;
+    SpriteRenderer sprite;
     public Robot speaker;
 
 
-    string[] script;
-    int index;
+    string script;
 
     public string line;
     public float speed;
     float letter;
+    public bool finished;
 
     void Start()
     {
         camera = Camera.main;
         text = GetComponentInChildren<Text>();
-        index = 0;
+        sprite = GetComponentInChildren<SpriteRenderer>();
+
         letter = 0;
-        script = new string[5];
-        script[0] = "This is a test to see how talking works";
+        script = "";       
+        finished = true;
     }
+
+   
 
     // Update is called once per frame
     void Update()
+    {
+        SetPosition();
+        if (script.Length > letter)
+        {
+            letter += speed;
+            line = script.Substring(0, (int)letter);
+            text.text = line;
+            
+        }
+        else
+        {
+            finished = true;            
+        }
+    }
+
+    public void SetPosition()
     {
         Vector3 angle = Vector3.zero;
         angle.x = transform.eulerAngles.x;
@@ -40,21 +60,44 @@ public class Dialogue : MonoBehaviour
         transform.eulerAngles = angle;
 
         Vector3 pos = speaker.transform.position;
-        pos.y += (speaker.GetComponent<CharacterController>().height );
+        pos.y += (speaker.GetComponent<CharacterController>().height);
         transform.position = pos;
+    }
 
+    public void SetLine(string line)
+    {
+        script = line;
+        letter = 0;
+        finished = false;
 
-        if (script[index].Length >= letter)
+        Color color = sprite.color;
+        Color textColor = text.color;
+        color.a = 1;
+        textColor.a = 1;
+        sprite.color = color;
+        text.color = textColor;
+    }
+    
+
+    public IEnumerator startFade(float delay, float rate)
+    {
+        yield return new WaitForSeconds(delay);
+        StartCoroutine(fade(rate));
+    }
+
+    public IEnumerator fade(float rate)
+    {
+        Color color = sprite.color;
+        Color textColor = text.color;
+        if ((color.a >= 0 || color.a <= 1) && finished)
         {
-            letter += speed;
-            line = script[index].Substring(0, (int)letter);
+            color.a += rate;
+            textColor.a += rate;
+            sprite.color = color;
+            text.color = textColor;
 
-            text.text = line;
+            yield return new WaitForSeconds(.2f);
+            StartCoroutine(fade(rate));
         }
-        else
-        {
-            
-        }
-
     }
 }

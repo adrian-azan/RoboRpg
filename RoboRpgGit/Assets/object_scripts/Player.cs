@@ -57,10 +57,10 @@ public class Player : PartyMember
 
         for (int i = 0; i < party.Length - 1; i++)
         {
-            party[i].updatePosition(party[i + 1].transform.position);
+            party[i].updatePosition(party[i + 1]);
         }
 
-        party[party.Length - 1].updatePosition(transform.position);
+        party[party.Length - 1].updatePosition(this);
 
     }
 
