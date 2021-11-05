@@ -1,5 +1,34 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7444142503253314762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6127136796366404215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52305e62988dd04385494aafd5ac484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 12
+  jumpSpeed: 5
+  gravityScale: 0.4
+  grounded: 1
+  canJump: 1
+  jumped: 0
+  turnSpeed: 640
+  controller: {fileID: 5758592654605544090}
+  moveDirection: {x: 0, y: 0, z: 0}
+  directionAngle: 0
+  ID: 
+  DEBUG: 0
+  dialogue: {fileID: 7085238567888817439}
+  posts: []
+  pos: 0
+  patrol: 2
+  path: 2
 --- !u!1001 &2869841553762034825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51,9 +80,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5008120708632226198, guid: cce266f3d720e40428b6ef202ff8a401, type: 3}
+      propertyPath: speaker
+      value: 
+      objectReference: {fileID: 7444142503253314762}
     - target: {fileID: 8274326119289773822, guid: cce266f3d720e40428b6ef202ff8a401, type: 3}
       propertyPath: m_Name
-      value: Robot
+      value: enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3324177660076505022, guid: cce266f3d720e40428b6ef202ff8a401, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cce266f3d720e40428b6ef202ff8a401, type: 3}
+--- !u!1 &6127136796366404215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8274326119289773822, guid: cce266f3d720e40428b6ef202ff8a401, type: 3}
+  m_PrefabInstance: {fileID: 2869841553762034825}
+  m_PrefabAsset: {fileID: 0}
+--- !u!143 &5758592654605544090 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: -1713311578426978797, guid: cce266f3d720e40428b6ef202ff8a401, type: 3}
+  m_PrefabInstance: {fileID: 2869841553762034825}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7085238567888817439 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5008120708632226198, guid: cce266f3d720e40428b6ef202ff8a401, type: 3}
+  m_PrefabInstance: {fileID: 2869841553762034825}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6127136796366404215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3f87839344d6046937cc69a8653810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

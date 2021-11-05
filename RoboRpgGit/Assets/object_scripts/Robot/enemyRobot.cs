@@ -37,22 +37,13 @@ public class enemyRobot : Robot
         base.Start();
         direction = 1;
         pos = 0;
-        debugColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        moveDirection = new Vector3(1,0,1);
-        Stop();
+        debugColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);    
     }
 
    
 
     // Update is called once per frame
-    void Update()
-    {
-        base.Update();
-        if (path == pathType.linear)
-            postPatrol();
-        else if (path == pathType.area)
-            areaPatrol();       
-    }
+   
 
     public void postPatrol()
     {

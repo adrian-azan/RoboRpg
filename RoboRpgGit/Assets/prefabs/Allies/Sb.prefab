@@ -72,6 +72,22 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3401329329483733229, guid: b4d626aed68583a4295237bc4278d018, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 6856194416152241856}
+    - target: {fileID: 3401329329483733229, guid: b4d626aed68583a4295237bc4278d018, type: 3}
+      propertyPath: jumpSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401329329483733229, guid: b4d626aed68583a4295237bc4278d018, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 8259437943350067525}
+    - target: {fileID: 3401329329483733229, guid: b4d626aed68583a4295237bc4278d018, type: 3}
+      propertyPath: gravityScale
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401329329483733229, guid: b4d626aed68583a4295237bc4278d018, type: 3}
       propertyPath: directionAngle
       value: 2.5
       objectReference: {fileID: 0}
@@ -101,3 +117,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4d626aed68583a4295237bc4278d018, type: 3}
+--- !u!143 &8259437943350067525 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 5006404571287549310, guid: b4d626aed68583a4295237bc4278d018, type: 3}
+  m_PrefabInstance: {fileID: 4027688535506023483}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6856194416152241856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7548913807859028731, guid: b4d626aed68583a4295237bc4278d018, type: 3}
+  m_PrefabInstance: {fileID: 4027688535506023483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3f87839344d6046937cc69a8653810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

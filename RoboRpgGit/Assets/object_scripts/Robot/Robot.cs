@@ -83,7 +83,7 @@ public class Robot : MonoBehaviour
             moveDirection.y += Mathf.Abs(jumpSpeed*Time.deltaTime);       
         else if (grounded == false)
             moveDirection.y += (Physics.gravity.y * gravityScale * Time.deltaTime);
-        else
+        else 
             moveDirection.y = 0;
     }
 
