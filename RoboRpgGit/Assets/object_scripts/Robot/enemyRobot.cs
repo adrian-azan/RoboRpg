@@ -5,13 +5,15 @@ using UnityEngine;
 public enum patrolType
 {
     pingPong,
-    loop
+    loop,
+    none
 };
 
 public enum pathType
 {
     linear,
-    area
+    area,
+    none
 };
 
 public class enemyRobot : Robot
@@ -28,6 +30,8 @@ public class enemyRobot : Robot
     private Color debugColor;
 
 
+
+
     protected new void Start()
     {
         base.Start();
@@ -35,26 +39,19 @@ public class enemyRobot : Robot
         pos = 0;
         debugColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         moveDirection = new Vector3(1,0,1);
+        Stop();
     }
 
-    private void FixedUpdate()
-    {
-        for (int i = 0; i < posts.Length; i++)
-        {
-            Debug.DrawRay(posts[i], transform.TransformDirection(Vector3.up) * 2, debugColor);
-        }
-    }
+   
 
     // Update is called once per frame
     void Update()
     {
-
+        base.Update();
         if (path == pathType.linear)
             postPatrol();
         else if (path == pathType.area)
-            areaPatrol();
-
-        //gravity();
+            areaPatrol();       
     }
 
     public void postPatrol()

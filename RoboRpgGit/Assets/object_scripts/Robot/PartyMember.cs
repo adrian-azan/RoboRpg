@@ -5,31 +5,12 @@ using UnityEngine;
 public class PartyMember : Robot
 {
 
-    //public PartyMember leader;
+    //public PartyMember leader;   
+
     
-    
-
-    private void FixedUpdate()
-    {
-        float distance = 1.05F * (GetComponent<CharacterController>().height/2);
-        RaycastHit hit;
-        Ray landingRay = new Ray(transform.position, Vector3.down);        
-
-        if (Physics.Raycast(landingRay, out hit, distance))
-        {
-            grounded = true;
-            canJump = true;
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * (distance), Color.blue);
-        }
-        else
-            grounded = false;
-
-        
-    }
     protected new void Start() 
     {
         base.Start();
-        gravityScale = .12F;
     }
 
     // Update is called once per frame
@@ -48,9 +29,9 @@ public class PartyMember : Robot
         //  moveDirection.z = moveDirection.z < 0 ? Mathf.Floor(moveDirection.z) : Mathf.Ceil(moveDirection.z);
 
         //Gives followers a buffer in how far they should be from leader
-        if (distance > 6)
+        if (distance > 8)
             Forward();
-        else if (distance > 4)
+        else if (distance > 6)
             Forward(.75f);
         else
         {
@@ -58,15 +39,8 @@ public class PartyMember : Robot
             moveDirection.z = 0;
             Forward();
         }
-
-       // canJump = leader.canJump;  
-        if (grounded == true && canJump == false)
-            StartCoroutine("jump");
-
-
-        gravity();
-        turnCheck();
-        turn();
+       
+        base.Update();
     }
 
     

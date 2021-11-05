@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : PartyMember
+public class Player : Robot
 {
     // Start is called before the first frame update
     public PartyMember[] party;
@@ -12,7 +12,7 @@ public class Player : PartyMember
         for (int i = 0; i < party.Length; i++)
         {
             Physics.IgnoreCollision(controller, party[i].controller, true);
-            for (int j = i; j < party.Length; j++)
+            for (int j = 0; j < party.Length; j++)
                 Physics.IgnoreCollision(party[j].controller, party[i].controller, true);
         }
     }
@@ -22,22 +22,13 @@ public class Player : PartyMember
     // Update is called once per frame
     void Update()
     {
+        
         float back = Input.GetKey("w") ? -1 : 0;
         float forward = Input.GetKey("s") ? 1 : 0;
         float left = Input.GetKey("a") ? 1 : 0;
         float right = Input.GetKey("d") ? -1 : 0;
         bool up = Input.GetKeyDown("space") ? true : false;
-
-
-
-        if (right == -1)
-        {
-            facing = true; turning = true;
-        }
-        else if (left == 1)
-        {
-            facing = false; turning = true;
-        }
+               
 
         moveDirection = new Vector3((left + right) * speed,
                                     moveDirection.y,
@@ -49,9 +40,7 @@ public class Player : PartyMember
             StartCoroutine("partyJump");
         }
 
-        gravity();
-        turn();
-        controller.Move(moveDirection * Time.deltaTime);
+        base.Update();
 
         
 
@@ -67,11 +56,12 @@ public class Player : PartyMember
 
     public IEnumerator partyJump()
     {
-        Debug.Log("partyJump");
         for (int i = party.Length-1; i >= 0; i--)
         {
             yield return new WaitForSeconds(.2f);
             party[i].jump();
         }
     }
+
+
 }
