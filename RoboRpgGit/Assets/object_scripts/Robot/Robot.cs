@@ -58,13 +58,14 @@ public class Robot : MonoBehaviour
 
     public void FixedUpdate()
     {
+        BoxCollider bc = GetComponent<BoxCollider>();
+        float distance = bc.size[1] / 2;
+        Vector3 center = bc.transform.position + bc.center;
 
-        float midToGround = GetComponent<BoxCollider>().size[1]/2;
-        float distance = midToGround;
-        
+
         RaycastHit hit;
-        Ray landingRay = new Ray(transform.position, Vector3.down);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * (distance), Color.blue);
+        Ray landingRay = new Ray(center, Vector3.down);
+        Debug.DrawRay(center, transform.TransformDirection(Vector3.down) * (distance), Color.blue);
 
         if (Physics.Raycast(landingRay, out hit, distance))
         {
@@ -78,10 +79,12 @@ public class Robot : MonoBehaviour
 
     public void gravity()
     {
-        if (grounded && jumped == false)
-            moveDirection.y = 0;
+        if (jumped)
+            moveDirection.y += Mathf.Abs(jumpSpeed*Time.deltaTime);       
+        else if (grounded == false)
+            moveDirection.y += (Physics.gravity.y * gravityScale * Time.deltaTime);
         else
-            moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale);
+            moveDirection.y = 0;
     }
 
     /*
@@ -127,7 +130,7 @@ public class Robot : MonoBehaviour
     }
     public void jump()
     {        
-        moveDirection.y = jumpSpeed;
+       
         grounded = false;
         canJump = false;
         jumped = true;
@@ -136,7 +139,9 @@ public class Robot : MonoBehaviour
 
     public void Forward(float scale = 1)
     {
-        controller.Move(moveDirection * Time.deltaTime * scale);
+        moveDirection.x = moveDirection.x * Time.deltaTime * scale;
+        moveDirection.z = moveDirection.z * Time.deltaTime * scale;
+        controller.Move(moveDirection);
     }
 
     public void Stop()
