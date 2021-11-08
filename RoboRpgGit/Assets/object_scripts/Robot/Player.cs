@@ -20,7 +20,7 @@ public class Player : Robot
 
 
     // Update is called once per frame
-    void Update()
+    protected new void Update()
     {
         
         float back = Input.GetKey("w") ? -1 : 0;
@@ -49,7 +49,8 @@ public class Player : Robot
             party[i].updatePosition(party[i + 1]);
         }
 
-        party[party.Length - 1].updatePosition(this);
+        if (party.Length >= 1)
+            party[party.Length - 1].updatePosition(this);
 
     }
 

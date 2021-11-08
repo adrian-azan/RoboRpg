@@ -16,7 +16,7 @@ public class Robot : MonoBehaviour
 
 
     /***Body***/
-    public bool facing { get; set; }
+    public bool facing;
     public float turnSpeed = 640;
     SpriteRenderer sp;
 
@@ -51,7 +51,7 @@ public class Robot : MonoBehaviour
     {
         gravity();
         turn();
-        turnCheck();
+        turnCheck();   
         Forward();
     }
 
@@ -64,7 +64,7 @@ public class Robot : MonoBehaviour
 
 
         RaycastHit hit;
-        Ray landingRay = new Ray(center, Vector3.down);
+        Ray landingRay = new Ray(center, transform.TransformDirection(Vector3.down));
         Debug.DrawRay(center, transform.TransformDirection(Vector3.down) * (distance), Color.blue);
 
         if (Physics.Raycast(landingRay, out hit, distance))
@@ -93,16 +93,17 @@ public class Robot : MonoBehaviour
     public void turnCheck()
     {
         if (moveDirection.x < 0)
-            facing = true;
+            facing = false;
         
         else if (moveDirection.x > 0)
-            facing = false;        
+            facing = true;        
     }
 
     
     public void turn()
     {       
         Vector3 rotation = transform.eulerAngles;
+        
         if (facing == true)
         {
             
@@ -110,6 +111,7 @@ public class Robot : MonoBehaviour
                 rotation.y = 0;           
             else
                 rotation.y -= Mathf.Round(turnSpeed * Time.deltaTime);
+            
         }
 
         else
@@ -119,8 +121,11 @@ public class Robot : MonoBehaviour
             else
                 rotation.y += Mathf.Round(turnSpeed * Time.deltaTime);
         }
-
+       
+        if (CompareTag("player"))
+            Debug.Log("Player: " + rotation);
         transform.eulerAngles = rotation;
+
     }
 
     public IEnumerator jumpedReset()
@@ -144,11 +149,7 @@ public class Robot : MonoBehaviour
         controller.Move(moveDirection);
     }
 
-    public void Stop()
-    {
-        moveDirection = new Vector3(0, moveDirection.y, 0);
-    }   
-
+    
     public void SetVelocity(float scale = 1)
     {
         moveDirection = new Vector3(1F, moveDirection.y, 1F);
@@ -169,7 +170,7 @@ public class Robot : MonoBehaviour
         Vector3 targetPosition = target.transform.position;
         Vector3 directionToTarget = transform.position - targetPosition;
         float angle = Vector3.SignedAngle(Vector3.left, directionToTarget, Vector3.up) + 180;
-
+        
         SetDirection(angle);
     }
 

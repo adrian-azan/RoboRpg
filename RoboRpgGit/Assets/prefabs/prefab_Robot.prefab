@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8274326119289773822
+--- !u!1 &8198766027201540214
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4442969011818252062}
-  - component: {fileID: -8391703348470570930}
-  - component: {fileID: -1713311578426978797}
-  - component: {fileID: 5643822471850051131}
-  - component: {fileID: 3324177660076505022}
-  - component: {fileID: 5008120708632226198}
+  - component: {fileID: 8198766027201540105}
+  - component: {fileID: 8198766027201540107}
+  - component: {fileID: 8198766027201540106}
+  - component: {fileID: 8198766027201540213}
+  - component: {fileID: 8198766027201540212}
   m_Layer: 0
-  m_Name: Robot
+  m_Name: prefab_Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4442969011818252062
+--- !u!4 &8198766027201540105
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274326119289773822}
+  m_GameObject: {fileID: 8198766027201540214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 126.26, y: 4.92, z: 94.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &-8391703348470570930
+--- !u!212 &8198766027201540107
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274326119289773822}
+  m_GameObject: {fileID: 8198766027201540214}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -80,19 +79,32 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!143 &-1713311578426978797
+--- !u!65 &8198766027201540106
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8198766027201540214}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.2134197, z: 1}
+  m_Center: {x: 0, y: -0.0034726858, z: 0}
+--- !u!143 &8198766027201540213
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274326119289773822}
+  m_GameObject: {fileID: 8198766027201540214}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -104,57 +116,29 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &5643822471850051131
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274326119289773822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3324177660076505022
+--- !u!114 &8198766027201540212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274326119289773822}
+  m_GameObject: {fileID: 8198766027201540214}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84f6972f9f6d26a4785aa959165c18cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
-  jumpSpeed: 50
-  gravityScale: 0.12
+  jumpSpeed: 4
+  gravityScale: 0.4
   grounded: 1
   canJump: 1
   jumped: 0
+  facing: 0
   turnSpeed: 640
-  controller: {fileID: -1713311578426978797}
+  controller: {fileID: 8198766027201540213}
   moveDirection: {x: 0, y: 0, z: 0}
   directionAngle: 0
   ID: 
   DEBUG: 0
-  dialogue: {fileID: 5008120708632226198}
---- !u!114 &5008120708632226198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274326119289773822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3f87839344d6046937cc69a8653810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speaker: {fileID: 3324177660076505022}
-  line: 
-  speed: 0
-  finished: 0
+  dialogue: {fileID: 0}
