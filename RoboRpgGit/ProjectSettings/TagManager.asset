@@ -9,6 +9,8 @@ TagManager:
   - enemy
   - TB
   - SB
+  - option
+  - center
   layers:
   - Default
   - TransparentFX

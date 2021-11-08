@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   jumpSpeed: 5
-  gravityScale: 0
+  gravityScale: 0.4
   grounded: 1
   canJump: 1
   jumped: 0

@@ -122,8 +122,6 @@ public class Robot : MonoBehaviour
                 rotation.y += Mathf.Round(turnSpeed * Time.deltaTime);
         }
        
-        if (CompareTag("player"))
-            Debug.Log("Player: " + rotation);
         transform.eulerAngles = rotation;
 
     }

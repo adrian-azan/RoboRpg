@@ -21,8 +21,7 @@ public class Player : Robot
 
     // Update is called once per frame
     protected new void Update()
-    {
-        
+    {        
         float back = Input.GetKey("w") ? -1 : 0;
         float forward = Input.GetKey("s") ? 1 : 0;
         float left = Input.GetKey("a") ? 1 : 0;
@@ -40,18 +39,14 @@ public class Player : Robot
             StartCoroutine("partyJump");
         }
 
-        base.Update();
-
-        
-
         for (int i = 0; i < party.Length - 1; i++)
-        {
             party[i].updatePosition(party[i + 1]);
-        }
+        
 
         if (party.Length >= 1)
             party[party.Length - 1].updatePosition(this);
 
+        base.Update();  
     }
 
 
