@@ -18,6 +18,7 @@ public class Robot : MonoBehaviour
     /***Body***/
     public bool facing;
     public float turnSpeed = 640;
+    public float height;
     SpriteRenderer sp;
 
 
@@ -45,6 +46,7 @@ public class Robot : MonoBehaviour
         moveDirection = new Vector3(0, 0, 0);
         dialogue = transform.GetComponentInChildren<Dialogue>();
         sp = GetComponent<SpriteRenderer>();
+        height = GetComponent<BoxCollider>().size[1];
     }
 
     protected void Update()
