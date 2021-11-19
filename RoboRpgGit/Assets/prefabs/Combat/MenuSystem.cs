@@ -19,7 +19,7 @@ public class MenuSystem : MonoBehaviour
     void Start()
     {
         
-        index = 1;
+        index = 2;
         options = FindObjectsOfType<SubMenu>();        
         rotating = false;
         rotation = new Vector3(0f,0,0f);
@@ -55,14 +55,14 @@ public class MenuSystem : MonoBehaviour
         if (rotating == false && next == 1)
         {
             direction = 1;
-            index += 1;
+            index -= 1;
             StartCoroutine(turnStart());
         }
 
         else if (rotating == false && back == -1)
         {
             direction = -1;
-            index -= 1;
+            index += 1;
             StartCoroutine(turnStart());
         }   
     }

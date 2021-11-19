@@ -20,8 +20,13 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        index += Input.GetKeyDown("r") ? 1 : 0;
+        index %= allies.Length;
         ms.setPos(allies[index]);
     }
+
+
+
 
     public void setEnemies(Robot[] e)
     {
