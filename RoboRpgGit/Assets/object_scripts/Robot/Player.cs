@@ -21,17 +21,14 @@ public class Player : Robot
 
     // Update is called once per frame
     protected new void Update()
-    {        
-        float back = Input.GetKey("w") ? -1 : 0;
-        float forward = Input.GetKey("s") ? 1 : 0;
-        float left = Input.GetKey("a") ? 1 : 0;
-        float right = Input.GetKey("d") ? -1 : 0;
-        bool up = Input.GetKeyDown("space") ? true : false;
-               
+    {
+        float vertical = Controller.Vertical();
+        float horizontal = Controller.Horizontal();
+        bool up = Controller.Jump();
 
-        moveDirection = new Vector3((left + right) * speed,
+        moveDirection = new Vector3(horizontal * speed,
                                     moveDirection.y,
-                                    (back + forward) * speed);
+                                    vertical * speed);
         
         if (up == true && canJump == true)
         {

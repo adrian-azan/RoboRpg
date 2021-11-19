@@ -776,9 +776,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1729185580}
   xDistance: 0
-  yDistance: 8
-  zDistance: 20
-  xRotation: 16
+  yDistance: 4
+  zDistance: 30
+  xRotation: 10
   yRotation: 180
   zRotation: 0
 --- !u!20 &731450626

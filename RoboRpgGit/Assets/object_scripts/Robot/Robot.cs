@@ -47,9 +47,7 @@ public class Robot : MonoBehaviour
         moveDirection = new Vector3(0, 0, 0);
         dialogue = transform.GetComponentInChildren<Dialogue>();
         sp = GetComponent<SpriteRenderer>();        
-        bc = GetComponent<BoxCollider>();
-        
-        
+        bc = GetComponent<BoxCollider>();       
     }
 
     protected void Update()
@@ -145,8 +143,12 @@ public class Robot : MonoBehaviour
 
     public void Forward(float scale = 1)
     {
+        
         moveDirection.x = moveDirection.x * Time.deltaTime * scale;
         moveDirection.z = moveDirection.z * Time.deltaTime * scale;
+       
+        //if (CompareTag("player") == true)
+        //    Debug.Log(moveDirection);
         controller.Move(moveDirection);
     }
 
