@@ -24,6 +24,7 @@ public class Robot : MonoBehaviour
 
     /***Movement***/
     public CharacterController controller;
+    public BoxCollider bc;
     public Vector3 moveDirection;
     public float directionAngle;
 
@@ -45,8 +46,10 @@ public class Robot : MonoBehaviour
     {
         moveDirection = new Vector3(0, 0, 0);
         dialogue = transform.GetComponentInChildren<Dialogue>();
-        sp = GetComponent<SpriteRenderer>();
-        height = GetComponent<BoxCollider>().size[1];
+        sp = GetComponent<SpriteRenderer>();        
+        bc = GetComponent<BoxCollider>();
+        
+        
     }
 
     protected void Update()
@@ -59,17 +62,15 @@ public class Robot : MonoBehaviour
 
 
     public void FixedUpdate()
-    {
-        BoxCollider bc = GetComponent<BoxCollider>();
-        float distance = bc.size[1] / 2;
+    {      
         Vector3 center = bc.transform.position + bc.center;
-
-
+        height = bc.size[1];
         RaycastHit hit;
         Ray landingRay = new Ray(center, transform.TransformDirection(Vector3.down));
-        Debug.DrawRay(center, transform.TransformDirection(Vector3.down) * (distance), Color.blue);
+        Debug.DrawRay(center, transform.TransformDirection(Vector3.down) * (height/2f), 
+                        Color.blue);
 
-        if (Physics.Raycast(landingRay, out hit, distance))
+        if (Physics.Raycast(landingRay, out hit, height/2f))
         {
             grounded = true;
             canJump = true;

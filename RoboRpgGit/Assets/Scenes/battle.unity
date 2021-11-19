@@ -183,6 +183,7 @@ MonoBehaviour:
   turnSpeed: 640
   height: 0
   controller: {fileID: 8852882}
+  bc: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   directionAngle: 0
   ID: 
@@ -331,6 +332,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8229098398850662855, guid: f0a479aa9385dc744ae8439808ca6a3a, type: 3}
+      propertyPath: bc
+      value: 
+      objectReference: {fileID: 993840763}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a479aa9385dc744ae8439808ca6a3a, type: 3}
 --- !u!1001 &196083682
@@ -833,6 +838,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &890401225 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3936684408005898474, guid: 56e23127fe8fd7b4ca71ead6c168c134, type: 3}
+  m_PrefabInstance: {fileID: 1000131092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &993840763 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5130970275634914882, guid: f0a479aa9385dc744ae8439808ca6a3a, type: 3}
+  m_PrefabInstance: {fileID: 56123969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1000131092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -840,6 +855,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 263063378173810543, guid: 56e23127fe8fd7b4ca71ead6c168c134, type: 3}
+      propertyPath: bc
+      value: 
+      objectReference: {fileID: 890401225}
     - target: {fileID: 3936684408005898390, guid: 56e23127fe8fd7b4ca71ead6c168c134, type: 3}
       propertyPath: m_Name
       value: prefab_Sb

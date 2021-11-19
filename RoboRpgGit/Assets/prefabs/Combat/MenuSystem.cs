@@ -51,7 +51,7 @@ public class MenuSystem : MonoBehaviour
         float back = Input.GetKeyDown("q") ? -1 : 0;
         float next = Input.GetKeyDown("e") ? 1 : 0;
         
-        Debug.Log(index);
+        
         if (rotating == false && next == 1)
         {
             direction = 1;
@@ -89,8 +89,9 @@ public class MenuSystem : MonoBehaviour
     {
         Vector3 tp = target.transform.position;
         Vector3 pos = new Vector3(tp.x,tp.y,tp.z);
-        //pos.y += target.height / 2;
-        pos.y += 2;
+
+        pos.y += target.height*.75f;
+        //pos.y += 2;
         this.transform.position = pos;
     }
    
