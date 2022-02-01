@@ -61,13 +61,13 @@ public class Conversation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == null || active) return;
+        //if (other == null || active) return;
 
-        if (other.CompareTag("player"))
-        {           
-            active = true;
+       // if (other.CompareTag("player"))
+       // {           
+       //     active = true;
                         
-        }
+      //  }
 
     }
 }

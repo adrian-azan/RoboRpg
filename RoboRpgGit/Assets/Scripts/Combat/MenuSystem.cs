@@ -90,7 +90,7 @@ public class MenuSystem : MonoBehaviour
         Vector3 tp = target.transform.position;
         Vector3 pos = new Vector3(tp.x,tp.y,tp.z);
 
-        pos.y += target.height*.75f;
+        //pos.y += target.height*.75f;
         //pos.y += 2;
         this.transform.position = pos;
     }
