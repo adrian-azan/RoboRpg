@@ -1,0 +1,8 @@
+{
+  "collider": {
+    "rays": false
+  },
+  "controller": {
+    "velocity": false,
+    "direction":  false
+  }

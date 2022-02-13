@@ -10,6 +10,7 @@ public class Party :Object
     public Queue positions;
     public Entity leader;
    
+    public float buffer = .2f;
     
 
     public Party(Entity leader, Entity test, int size)
@@ -23,37 +24,46 @@ public class Party :Object
             party[i] = Instantiate(test,leader.transform.position,new Quaternion());
             party[i].Create();
         }
+
+         for (int i = 0; i < positions.Size(); i++)
+        {
+             positions.Enqueu(leader.transform.position);       
+        }
     }
 
     
 
     public void FixedUpdate()
     {
-        if (Utilities.Space.DistanceFrom(positions.Back(), leader.transform.position) > .5)
-        {
-            
+        if (Utilities.Space.DistanceFrom(leader,positions.Back()) > .5)
+        {            
             positions.Enqueu(leader.transform.position);          
         }     
 
         for (int i = 0; i < party.Length; i++)
-        {
-            int queuePos = (positions._size/party.Length)*i;
-            if (Utilities.Space.DistanceFrom(party[i], positions.At(queuePos)) > 2)
+        {           
+            int queuePos = ((int)(positions.Size()*buffer)/party.Length) * i;
+            queuePos += (int)(positions.Size()*buffer);
+            if (Utilities.Space.DistanceFrom(party[i], positions.At(queuePos)) > 3)
             { 
-                party[i].SetDirection(positions.At(queuePos));
-                party[i].SetVelocity();
+                party[i].entityController.SetDirection(positions.At(queuePos));
+                party[i].entityController.SetVelocity();
             }
 
-            else if (Utilities.Space.DistanceFrom(party[i], positions.At(queuePos)) < 1)
+            else if (Utilities.Space.DistanceFrom(party[i], positions.At(queuePos)) < 2)
             {
-                party[i].SetVelocity(0);
+                party[i].entityController.SetVelocity(0);
             }
-        }
-       
+        }       
 
-        for (int i = 0; i < positions._size; i++)
+        for (int i = 0; i < (int)positions.Size()*buffer; i++)
         {
-       //     Debug.DrawLine(positions.At(i), positions.At(i) + new Vector3(0,10,0));
+            Debug.DrawLine(positions.At(i), positions.At(i) + new Vector3(0,10,0),Color.red);
+        }
+
+        for (int i = (int)(positions.Size()*buffer); i < positions.Size(); i++)
+        {
+            Debug.DrawLine(positions.At(i), positions.At(i) + new Vector3(0,10,0),Color.blue);
         }
     }
 
@@ -63,57 +73,47 @@ public class Party :Object
 
     public class Queue
     {
-        private ArrayList _members;
-        public  int _capacity {get; }
-        public  int _size {get; set;}
-
+        private ArrayList _items;        
         public Queue(int capacity)
         {
-            _members = new ArrayList(capacity);
-            _size = 0;
-            _capacity = capacity;       
+            _items = new ArrayList(capacity);
+            
+            for (int i = 0; i < capacity;i++)
+            {
+                _items.Add(new Vector3());
+            }
+        }
+
+        public int Size()
+        {
+            return _items.Count;
         }
 
         public Vector3 At(int index)
         {            
-            if (index >= 0 && index < _size)
-                return (Vector3)_members[index] ;
+            if (index >= 0 && index < _items.Count)
+                return (Vector3)_items[index] ;
             return new Vector3() ;
         }
-        public void Enqueu(Vector3 newMember)
-        {
-            if (_capacity > _size)
-            {
-                _members.Insert(0,newMember);
-                _size++;
-            }
-            else
-            {
-                _members.RemoveAt(_capacity-1);
-                _members.Insert(0,newMember);
-            }
+        public void Enqueu(Vector3 newItem)
+        {           
+            Dequeu();
+            _items.Insert(0,newItem);           
         }
 
-        public void Deque()
-        {
-            if (_size > 0)
-            {
-                _members.RemoveAt(_capacity-1);
-                _size--;
-            }
+        public void Dequeu()
+        {            
+            _items.RemoveAt(_items.Count-1);            
         }
 
         public Vector3 Front()
-        {
-            if (_size > 0) 
-                return (Vector3)_members[_size-1];
-            return new Vector3();
+        {           
+            return (Vector3)_items[_items.Count-1];           
         }
 
         public Vector3 Back()
         {
-            return (_size > 0) ? (Vector3)_members[0] : new Vector3();
-            
+            return (Vector3)_items[0];            
         }
     }
 }

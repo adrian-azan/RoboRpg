@@ -15,10 +15,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Entities
   - Water
   - UI
-  - 
+  - Environment
   - 
   - 
   - 
@@ -48,6 +48,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: New Layer
+  - name: environment
     uniqueID: 4292136301
     locked: 0

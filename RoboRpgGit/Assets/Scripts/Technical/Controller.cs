@@ -7,12 +7,12 @@ public static class Controller
 
     public static float Horizontal()
     {
-        return -Input.GetAxisRaw("Horizontal");     
+        return Input.GetAxisRaw("Horizontal");     
     }
 
     public static float Vertical()
     {
-        return -Input.GetAxisRaw("Vertical");       
+        return Input.GetAxisRaw("Vertical");       
     }
 
     public static bool Jump()
