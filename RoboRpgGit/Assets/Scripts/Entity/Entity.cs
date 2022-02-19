@@ -20,7 +20,7 @@ public class Entity : MonoBehaviour
         Create();
         //Controller Ignores collisions between entities and the environment
         Physics.IgnoreLayerCollision(3,6);
-        entityDebugger = JsonUtility.FromJson<EntityDebugger>("Debug.json");
+        //entityDebugger = JsonUtility.FromJson<EntityDebugger>("Debug.json");
     }
 
     public void Create()
@@ -38,8 +38,6 @@ public class Entity : MonoBehaviour
         if (entityCollider.isActive(Side.bottom) == false)
             entityController.Gravity();
         else
-            entityController.vector.y = 0;
-
-        
+            entityController.vector.y = 0;        
     }
 }
