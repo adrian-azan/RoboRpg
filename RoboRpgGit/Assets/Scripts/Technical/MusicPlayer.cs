@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System.Collections;
+using TMPro;
 
 
 
@@ -40,43 +41,88 @@ public class MusicPlayer : MonoBehaviour
 {
     
     public Song[] songs;
+    public int selected;
     public AudioListener audioListener;
     public AudioSource audioSource;
     public DirectoryInfo dir;
 
+    public UI prefab;
+    public ui_CassetPlayer test;
+   
     public void Start()
-    {       
-       // audioSource.clip = songs[0].audioClip;
-       // audioSource.Play();
-       audioSource.volume = .05f;
-       LoadAlbum("TWRP");
-       Play("TWRP - New & Improved - 05 Planet Bass (feat. Alex Moukala)");
-     //  StartCoroutine(FadeOut(20));
+    {      
+       audioSource.volume = .05f;        
+       test = Instantiate<ui_CassetPlayer>((ui_CassetPlayer)prefab);                
+         
+       LoadAlbum("TWRP");     
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        { 
+            StartCoroutine(test.Display());        
+        }
+
+        if (test.isShown() && Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Next();
+            Play();
+        }
+
+        if (test.isShown() && Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Prev();
+            Play();
+        }
     }
 
     public void LoadSong(string artist, string song)
     {
-        songs Resources.LoadAsync<AudioClip>($"Music/{artist}/{song}");
+        //songs.Resources.LoadAsync<AudioClip>($"Music/{artist}/{song}");
     }
 
     public void LoadAlbum(string artist)
-    {        
+    {   
         var clips =  Resources.LoadAll<AudioClip>($"Music/{artist}");
         songs = new Song[clips.Length];
         for (int i = 0; i < songs.Length; i++)
         {
             songs[i] = new Song(clips[i],artist);
         }      
+        selected = 0;
+        audioSource.clip = songs.ElementAt(selected).audioClip;
+        test.SetText(songs.ElementAt(selected).name);
     }
 
+    public void Next()
+    {
+        if (selected+1 < songs.Length)
+            selected++;
+    }  
+    
+    public void Prev()
+    {
+        if (selected-1 > -1)
+            selected--;
+    }
 
     public void Play( string songName = null, float time = 0)
     {
         var song = songs.Where(x => x.name == songName).FirstOrDefault();
 
         if (song != null) 
+        {
             audioSource.clip = song.audioClip;
+            test.SetText(song.name);
+        }
+        else
+        {
+            audioSource.clip = songs.ElementAt(selected).audioClip;
+            test.SetText(songs.ElementAt(selected).name);
+        }
 
+        
         audioSource.time = time;
         audioSource.Play();        
     }

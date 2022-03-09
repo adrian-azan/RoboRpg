@@ -20,4 +20,8 @@ public static class Controller
         return Input.GetAxis("Jump") == 1;
     }
 
+    public static bool Key(KeyCode key)
+    {
+        return Input.GetKeyDown(key);
+    }
 }

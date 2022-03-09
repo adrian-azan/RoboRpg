@@ -29,7 +29,7 @@ public class Robot : Entity
           
     }
 
-    protected new void Update()
+    protected void Update()
     {
     
     }

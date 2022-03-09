@@ -16,7 +16,7 @@ public enum pathType
     none
 };
 
-public class enemyRobot : Robot
+public class EnemyRobot : Robot
 {
   
     // Start is called before the first frame update
@@ -35,9 +35,7 @@ public class enemyRobot : Robot
     protected new void Start()
     {
         base.Start();
-        direction = 1;
-        pos = 0;
-        debugColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);    
+     
     }
 
    
